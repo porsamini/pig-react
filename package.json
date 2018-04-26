@@ -4,7 +4,7 @@
   "description": "Inspired by https://github.com/schlosser/pig.js/, this is a react version of the plugin. From the original author - \"Arrange images in a responsive, progressive-loading grid managed in JavaScript using CSS transforms.\"",
   "main": "Pig.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/porsamini/pig-react/issues"
   },
-  "homepage": "https://github.com/porsamini/pig-react#readme"
+  "homepage": "https://github.com/porsamini/pig-react#readme",
+  "devDependencies": {
+    "jest": "^22.4.3"
+  }
 }

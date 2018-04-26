@@ -1,3 +1,10 @@
+###### Yet to be published
+```
+TODO:
+1. Tests to be added(planned to use Jest)
+2. README to be updated with new methods onClick and imageId
+```
+
 Progressive Image Grid (`pig.js`)
 =================================
 
