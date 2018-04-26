@@ -1,8 +1,6 @@
 Progressive Image Grid (`pig.js`)
 =================================
 
-[![npm](https://img.shields.io/npm/v/pig.js.svg)](https://www.npmjs.com/package/pig.js) [![Bower](https://img.shields.io/bower/v/pig.js.svg)]()
-
 #### → → [Play with a demo][feeding-dan]
 
 Arrange images in a responsive, progressive-loading grid managed in JavaScript using CSS transforms, with one lightweight library. Here's what you get:
@@ -19,16 +17,13 @@ If you want to see `pig.js` in action, check out the site that motivated it in t
 
 #### Step 0: Install
 
-[Download the latest release][download].
+`npm install porsamini/pig-react --save`
 
 #### Step 1: Create your markup
 
-```html
-<!-- Include the pig.js library -->
-<script src="/path/to/pig.min.js"></script>
+```javascript
+<Pig imageData={this.state.imageData} options={this.options} />
 
-<!-- Create a container element for the grid. -->
-<div id="pig"></div>
 ```
 
 #### Step 2: Create a structure to serve your images
@@ -82,23 +77,35 @@ var options = {
 #### Step 3: Create a new `Pig` instance, passing image data and options
 
 ```javascript
-var imageData = [
-  {filename: 'blue.jpg', aspectRatio: 1.777},
-  {filename: 'red.jpg', aspectRatio: 1.5},
-  {filename: 'green.jpg', aspectRatio: 1.777},
-  {filename: 'orange.jpg', aspectRatio: 1.777},
-  {filename: 'yellow.jpg', aspectRatio: 1},
-  {filename: 'purple.jpg', aspectRatio: 2.4},
-];
+fetch('...')
+.then(response => {
+  response.data.images.forEach(image => {
+    var imageLocation = process.env.REACT_APP_SERVER_URL+'/'+image.previewLocation;
+    imageData.push({
+      filename: imageLocation,
+      aspectRatio: image.aspectRatio,
+      imageId: image._id
+    })
+    options = {
+      containerId: 'image-content',
+      urlForSize: (filename, size) => {
+        return filename;
+      },
+      onClick: (elem) => {
+        console.log(elem)
+      },
+      figureTagName: 'div',
+      spaceBetweenImages: 2
+    }
+  })
+  thisObject.setState({imageData: imageData, options: options});
+})
 
-var options = {
-  urlForSize: function(filename, size) {
-    return '/img/' + size + '/' + filename;
-  },
-  // ...
-};
+// ...
+render() {
+  <Pig imageData={this.state.imageData} options={this.state.options} />
+}
 
-var pig = new Pig(imageData, options).enable();
 ```
 
 ## API
